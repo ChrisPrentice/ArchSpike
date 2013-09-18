@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+@model ILB.Contacts.CreateContactCommand
+
+<h2>Create Contact</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(q => q.FirstName)
+        @Html.TextBoxFor(q => q.FirstName)
+        @Html.ValidationMessageFor(q => q.FirstName)
+    </div>
+
+    <div>
+        @Html.LabelFor(q => q.Surname)
+        @Html.TextBoxFor(q => q.Surname)
+        @Html.ValidationMessageFor(q => q.Surname)
+    </div>
+    <div>
+        @Html.LabelFor(q => q.Address1)
+        @Html.TextBoxFor(q => q.Address1)
+        @Html.ValidationMessageFor(q => q.Address1)
+    </div>
+    <div>
+        @Html.LabelFor(q => q.Address2)
+        @Html.TextBoxFor(q => q.Address2)
+        @Html.ValidationMessageFor(q => q.Address2)
+    </div>
+    <div>
+        @Html.LabelFor(q => q.CountyId)
+        @Html.DropDownListFor(q => q.CountyId, Model.Counties.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.ValidationMessageFor(q => q.CountyId)
+    </div>    
+    <div>
+        @Html.LabelFor(q => q.CountryId)
+        @Html.DropDownListFor(q => q.CountryId, Model.Countries.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.ValidationMessageFor(q => q.CountyId)
+    </div>
+    <input type="submit" value="Save"/>    
+}
