@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILB.ApplicationServices", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILB.Web", "ILB.Web\ILB.Web.csproj", "{FF1CE366-B061-41EF-8A82-B708D8299E34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILB.Wpf", "ILB.Wpf\ILB.Wpf.csproj", "{72D51214-A888-4121-8596-61F291594BD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{FF1CE366-B061-41EF-8A82-B708D8299E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF1CE366-B061-41EF-8A82-B708D8299E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF1CE366-B061-41EF-8A82-B708D8299E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D51214-A888-4121-8596-61F291594BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D51214-A888-4121-8596-61F291594BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D51214-A888-4121-8596-61F291594BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D51214-A888-4121-8596-61F291594BD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

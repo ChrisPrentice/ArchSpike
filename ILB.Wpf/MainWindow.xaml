@@ -1,0 +1,43 @@
+﻿<Window x:Class="ILB.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel LastChildFill="True">
+        <DockPanel Width="150">
+            <Label DockPanel.Dock="Top" FontWeight="Bold">Existing Contacts</Label>
+            <ListView ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" Margin="5">
+            </ListView>
+        </DockPanel>
+        <StackPanel Margin="10 0 10 0">
+            <Label DockPanel.Dock="Top" FontWeight="Bold">Contact Details</Label>
+            <DockPanel Margin="5">
+                <Label Content="First Name" Width="100"></Label>
+                <TextBox Text="{Binding CurrentCommand.FirstName}"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <Label Content="Surname" Width="100"></Label>
+                <TextBox Text="{Binding CurrentCommand.Surname}"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <Label Content="Address1" Width="100"></Label>
+                <TextBox Text="{Binding CurrentCommand.Address1}"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <Label Content="Address2" Width="100"></Label>
+                <TextBox Text="{Binding CurrentCommand.Address2}"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <Label Content="County" Width="100"></Label>
+                <ComboBox ItemsSource="{Binding CurrentCommand.Counties}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding CurrentCommand.CountyId}"></ComboBox>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <Label Content="Country" Width="100"></Label>
+                <ComboBox ItemsSource="{Binding CurrentCommand.Countries}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding CurrentCommand.CountryId}"></ComboBox>
+            </DockPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="New" Command="{Binding NewCommand}" Margin="5" Padding="5"></Button>
+                <Button Content="Save" Command="{Binding SaveCommand}" Margin="5" Padding="5"></Button>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>
