@@ -34,7 +34,7 @@ namespace ILB.ApplicationServices
 
         public CreateContactCommand CreateContact(CreateContactCommand createContactCommand)
         {
-            if (_validationService.Validate(createContactCommand))
+            if (_validationService.Validate(createContactCommand).IsValid)
             {
                 _contactAdministrationService.Create(createContactCommand);
             }
@@ -54,7 +54,7 @@ namespace ILB.ApplicationServices
 
         public UpdateContactCommand UpdateContact(UpdateContactCommand updateCommand)
         {
-            if (_validationService.Validate(updateCommand))
+            if (_validationService.Validate(updateCommand).IsValid)
             {
                 _contactAdministrationService.Update(updateCommand);
                 return updateCommand;

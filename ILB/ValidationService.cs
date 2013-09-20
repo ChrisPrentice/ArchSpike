@@ -5,10 +5,12 @@ namespace ILB
 {
     public class ValidationService : IValidationService
     {
-        public bool Validate(object obj)
+        public ValidationResults Validate(object obj)
         {
             var context = new ValidationContext(obj);
-            return Validator.TryValidateObject(obj, context, new Collection<ValidationResult>());
+            var validationResults = new Collection<ValidationResult>();
+            Validator.TryValidateObject(obj, context, validationResults);
+            return new ValidationResults(validationResults);
         }
     }
 }

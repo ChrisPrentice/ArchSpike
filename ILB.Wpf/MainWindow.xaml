@@ -2,6 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+    <Style TargetType="{x:Type TextBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    </Window.Resources>
     <DockPanel LastChildFill="True">
         <DockPanel Width="150">
             <Label DockPanel.Dock="Top" FontWeight="Bold">Existing Contacts</Label>
@@ -12,19 +21,19 @@
             <Label DockPanel.Dock="Top" FontWeight="Bold">Contact Details</Label>
             <DockPanel Margin="5">
                 <Label Content="First Name" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.FirstName}"></TextBox>
+                <TextBox Text="{Binding CurrentCommand.FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Surname" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.Surname}"></TextBox>
+                <TextBox Text="{Binding CurrentCommand.Surname, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Address1" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.Address1}"></TextBox>
+                <TextBox Text="{Binding CurrentCommand.Address1, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Address2" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.Address2}"></TextBox>
+                <TextBox Text="{Binding CurrentCommand.Address2, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="County" Width="100"></Label>

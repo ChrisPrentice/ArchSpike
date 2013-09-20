@@ -2,6 +2,6 @@
 {
     public interface IValidationService
     {
-        bool Validate(object obj);
+        ValidationResults Validate(object obj);
     }
 }

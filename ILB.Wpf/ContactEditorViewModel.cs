@@ -12,26 +12,25 @@ namespace ILB.Wpf
     {
         private readonly IContactService _contactService;
         private IList<Contact> _contacts;
-        private CreateContactCommand _currentCommand;
+        private CreateContactViewModel _currentCommand;
         private Contact _selectedContact;
 
         public ContactEditorViewModel(IContactService contactService)
         {
             _contactService = contactService;
             Contacts = contactService.GetAll();
-            
-            CurrentCommand = contactService.CreateContact();
             SaveCommand = new DelegateCommand(() =>
                 {
-                    contactService.CreateContact(CurrentCommand);
+                    contactService.CreateContact(CurrentCommand.Command);
                     Contacts = contactService.GetAll();
                 });
-            NewCommand = new DelegateCommand(() => CurrentCommand = contactService.CreateContact());
+            NewCommand = new DelegateCommand(() => CurrentCommand = new CreateContactViewModel(contactService.CreateContact(), new ValidationService()));
+            NewCommand.Execute(null);
         }
 
         protected ICommand NewCommand { get; set; }
 
-        public CreateContactCommand CurrentCommand
+        public CreateContactViewModel CurrentCommand
         {
             get { return _currentCommand; }
             set
@@ -47,7 +46,7 @@ namespace ILB.Wpf
             set
             {
                 _selectedContact = value;
-                this.CurrentCommand = _contactService.UpdateContact(_selectedContact.Id);
+                CurrentCommand = new CreateContactViewModel(_contactService.UpdateContact(_selectedContact.Id), new ValidationService());
                 OnPropertyChanged();
             }
         }
@@ -60,7 +59,7 @@ namespace ILB.Wpf
             set
             {
                 _contacts = value;
-                OnPropertyChanged("Contacts");
+                OnPropertyChanged();
             }
         }
 
