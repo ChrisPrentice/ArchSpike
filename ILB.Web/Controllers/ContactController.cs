@@ -16,12 +16,12 @@ namespace ILB.Web.Controllers
         {
             // You'd really DI this is from autofac.
             var contactService = new ContactService(new CountyRepository(),
-              new CountryRepository(),
-              new ContactRepository(),
-              new ValidationService(),
-              new ContactAdministrationService(new CountyRepository(),
-                                               new CountryRepository(),
-                                               new ContactRepository()));
+                                                      new CountryRepository(),
+                                                      new ContactRepository(),
+                                                      new ValidationService(),
+                                                      new ContactAdministrationService(new CountyRepository(),
+                                                                                       new CountryRepository(),
+                                                                                       new ContactRepository()));
 
             commandInvoker = new CommandInvoker(contactService);
             queryInvoker = new QueryInvoker(contactService);

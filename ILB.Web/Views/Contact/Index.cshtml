@@ -1,16 +1,26 @@
 ﻿@{
     ViewBag.Title = "Index";
+    Layout = "../Shared/Layout.cshtml";
 }
 
 @model ILB.ApplicationServices.Contacts.AllContactsQueryResult
 
 <h2>Contacts</h2>
-
-@Html.ActionLink("Create New", "create")
-
-<ul>
-@foreach (var contact in Model.Contacts)
-{
-    <li>@Html.ActionLink(contact.ToString(), "update", new { id = contact.Id })</li>
-}
-</ul>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Address1</th>
+        <th>Address2</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var contact in Model.Contacts)
+    {
+        <tr>
+            <td>@contact.ToString()</td>
+            <td>@contact.Address1</td>
+            <td>@contact.Address2</td>
+            <td>@Html.ActionLink("Edit", "update", new { id = contact.Id }, new {@class="btn btn-default"})</td>
+        </tr>
+    }    
+</table>
+@Html.ActionLink("Create New", "create", null, new {@class="btn btn-default"})

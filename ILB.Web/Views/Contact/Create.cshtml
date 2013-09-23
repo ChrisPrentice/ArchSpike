@@ -1,41 +1,42 @@
 ﻿@{
     ViewBag.Title = "Create";
+    Layout = "../Shared/Layout.cshtml";
 }
 @model ILB.ApplicationServices.Contacts.CreateContactQueryResult
 
-<h2>Create Contact</h2>
 @using (Html.BeginForm())
 {
-    <div>
+    <legend>Create Contact</legend>
+    <div class="form-group">
         @Html.LabelFor(q => q.Command.FirstName)
-        @Html.TextBoxFor(q => q.Command.FirstName)
+        @Html.TextBoxFor(q => q.Command.FirstName, new { @class="form-control"})
         @Html.ValidationMessageFor(q => q.Command.FirstName)
     </div>
 
-    <div>
+    <div class="form-group">
         @Html.LabelFor(q => q.Command.Surname)
-        @Html.TextBoxFor(q => q.Command.Surname)
+        @Html.TextBoxFor(q => q.Command.Surname, new { @class="form-control"})
         @Html.ValidationMessageFor(q => q.Command.Surname)
     </div>
-    <div>
+    <div class="form-group">
         @Html.LabelFor(q => q.Command.Address1)
-        @Html.TextBoxFor(q => q.Command.Address1)
+        @Html.TextBoxFor(q => q.Command.Address1, new { @class="form-control"})
         @Html.ValidationMessageFor(q => q.Command.Address1)
     </div>
-    <div>
+    <div class="form-group">
         @Html.LabelFor(q => q.Command.Address2)
-        @Html.TextBoxFor(q => q.Command.Address2)
+        @Html.TextBoxFor(q => q.Command.Address2, new { @class="form-control"})
         @Html.ValidationMessageFor(q => q.Command.Address2)
     </div>
-    <div>
+    <div class="form-group">
         @Html.LabelFor(q => q.Command.CountyId)
-        @Html.DropDownListFor(q => q.Command.CountyId, Model.Counties.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.DropDownListFor(q => q.Command.CountyId, Model.Counties.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }), new { @class="form-control"})
         @Html.ValidationMessageFor(q => q.Command.CountyId)
     </div>    
-    <div>
+    <div class="form-group">
         @Html.LabelFor(q => q.Command.CountryId)
-        @Html.DropDownListFor(q => q.Command.CountryId, Model.Countries.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.DropDownListFor(q => q.Command.CountryId, Model.Countries.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }), new { @class="form-control"})
         @Html.ValidationMessageFor(q => q.Command.CountyId)
     </div>
-    <input type="submit" value="Save"/>    
+    <input type="submit" value="Save" class="btn btn-default"/>    
 }
