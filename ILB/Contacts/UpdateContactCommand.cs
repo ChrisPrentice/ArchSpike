@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ILB.Contacts
+﻿namespace ILB.Contacts
 {
     public class UpdateContactCommand : CreateContactCommand
     {
@@ -9,7 +7,7 @@ namespace ILB.Contacts
             
         }
 
-        public UpdateContactCommand(Contact contact, IList<County> counties, IList<Country> countries) : base(counties, countries)
+        public UpdateContactCommand(Contact contact)
         {
             Id = contact.Id;
             FirstName = contact.FirstName;

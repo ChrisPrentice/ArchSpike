@@ -5,11 +5,11 @@ namespace ILB.Wpf
 {
     public class DelegateCommand : ICommand 
     {
-        private readonly Action _func;
+        private readonly Action func;
 
         public DelegateCommand(Action func)
         {
-            _func = func;
+            this.func = func;
         }
 
         public bool CanExecute(object parameter)
@@ -19,7 +19,7 @@ namespace ILB.Wpf
 
         public void Execute(object parameter)
         {
-            _func();
+            func();
         }
 
         public event EventHandler CanExecuteChanged;

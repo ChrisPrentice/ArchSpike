@@ -1,41 +1,41 @@
 ﻿@{
     ViewBag.Title = "Create";
 }
-@model ILB.Contacts.CreateContactCommand
+@model ILB.ApplicationServices.Contacts.CreateContactQueryResult
 
 <h2>Create Contact</h2>
 @using (Html.BeginForm())
 {
     <div>
-        @Html.LabelFor(q => q.FirstName)
-        @Html.TextBoxFor(q => q.FirstName)
-        @Html.ValidationMessageFor(q => q.FirstName)
+        @Html.LabelFor(q => q.Command.FirstName)
+        @Html.TextBoxFor(q => q.Command.FirstName)
+        @Html.ValidationMessageFor(q => q.Command.FirstName)
     </div>
 
     <div>
-        @Html.LabelFor(q => q.Surname)
-        @Html.TextBoxFor(q => q.Surname)
-        @Html.ValidationMessageFor(q => q.Surname)
+        @Html.LabelFor(q => q.Command.Surname)
+        @Html.TextBoxFor(q => q.Command.Surname)
+        @Html.ValidationMessageFor(q => q.Command.Surname)
     </div>
     <div>
-        @Html.LabelFor(q => q.Address1)
-        @Html.TextBoxFor(q => q.Address1)
-        @Html.ValidationMessageFor(q => q.Address1)
+        @Html.LabelFor(q => q.Command.Address1)
+        @Html.TextBoxFor(q => q.Command.Address1)
+        @Html.ValidationMessageFor(q => q.Command.Address1)
     </div>
     <div>
-        @Html.LabelFor(q => q.Address2)
-        @Html.TextBoxFor(q => q.Address2)
-        @Html.ValidationMessageFor(q => q.Address2)
+        @Html.LabelFor(q => q.Command.Address2)
+        @Html.TextBoxFor(q => q.Command.Address2)
+        @Html.ValidationMessageFor(q => q.Command.Address2)
     </div>
     <div>
-        @Html.LabelFor(q => q.CountyId)
-        @Html.DropDownListFor(q => q.CountyId, Model.Counties.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
-        @Html.ValidationMessageFor(q => q.CountyId)
+        @Html.LabelFor(q => q.Command.CountyId)
+        @Html.DropDownListFor(q => q.Command.CountyId, Model.Counties.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.ValidationMessageFor(q => q.Command.CountyId)
     </div>    
     <div>
-        @Html.LabelFor(q => q.CountryId)
-        @Html.DropDownListFor(q => q.CountryId, Model.Countries.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
-        @Html.ValidationMessageFor(q => q.CountyId)
+        @Html.LabelFor(q => q.Command.CountryId)
+        @Html.DropDownListFor(q => q.Command.CountryId, Model.Countries.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.ValidationMessageFor(q => q.Command.CountyId)
     </div>
     <input type="submit" value="Save"/>    
 }

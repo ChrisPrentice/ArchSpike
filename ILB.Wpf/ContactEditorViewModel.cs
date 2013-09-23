@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ILB.ApplicationServices;
+using ILB.ApplicationServices.Contacts;
 using ILB.Contacts;
 using ILB.Wpf.Annotations;
 
@@ -10,43 +11,58 @@ namespace ILB.Wpf
 {
     public class ContactEditorViewModel : INotifyPropertyChanged    
     {
-        private readonly IContactService _contactService;
-        private IList<Contact> _contacts;
-        private CreateContactViewModel _currentCommand;
-        private Contact _selectedContact;
+        private readonly IQueryInvoker queryInvoker;
+        private IList<Contact> contacts;
+        private CreateContactViewModel currentContact;
+        private Contact selectedContact;
 
-        public ContactEditorViewModel(IContactService contactService)
+        public ContactEditorViewModel(ICommandInvoker commandInvoker, IQueryInvoker queryInvoker)
         {
-            _contactService = contactService;
-            Contacts = contactService.GetAll();
+            this.queryInvoker = queryInvoker;
+            Contacts = queryInvoker.Query<AllContactsQueryResult>().Contacts;
+
             SaveCommand = new DelegateCommand(() =>
                 {
-                    contactService.CreateContact(CurrentCommand.Command);
-                    Contacts = contactService.GetAll();
+                    if (CurrentContact.Command is UpdateContactCommand)
+                    {
+                        commandInvoker.Execute<UpdateContactCommand, UpdateContactQueryResult>((UpdateContactCommand) CurrentContact.Command);
+                    }
+                    else
+                    {
+                        commandInvoker.Execute<CreateContactCommand, CreateContactQueryResult>(CurrentContact.Command);
+                    }
+
+                    Contacts = queryInvoker.Query<AllContactsQueryResult>().Contacts;
                 });
-            NewCommand = new DelegateCommand(() => CurrentCommand = new CreateContactViewModel(contactService.CreateContact(), new ValidationService()));
+
+            NewCommand = new DelegateCommand(() =>
+                {
+                    var modifyContactQueryResult = queryInvoker.Query<UpdateContactQueryResult>();
+                    CurrentContact = new CreateContactViewModel(modifyContactQueryResult, new ValidationService());
+                });
             NewCommand.Execute(null);
         }
 
-        protected ICommand NewCommand { get; set; }
+        public ICommand NewCommand { get; set; }
 
-        public CreateContactViewModel CurrentCommand
+        public CreateContactViewModel CurrentContact
         {
-            get { return _currentCommand; }
+            get { return currentContact; }
             set
             {
-                _currentCommand = value;
+                currentContact = value;
                 OnPropertyChanged();
             }
         }
 
         public Contact SelectedContact
         {
-            get { return _selectedContact; }
+            get { return selectedContact; }
             set
             {
-                _selectedContact = value;
-                CurrentCommand = new CreateContactViewModel(_contactService.UpdateContact(_selectedContact.Id), new ValidationService());
+                selectedContact = value;
+                var modifyContactQueryResult = queryInvoker.Query<UpdateContactQuery, UpdateContactQueryResult>(new UpdateContactQuery {Id = selectedContact.Id});
+                CurrentContact = new CreateContactViewModel(modifyContactQueryResult, new ValidationService());
                 OnPropertyChanged();
             }
         }
@@ -55,10 +71,10 @@ namespace ILB.Wpf
 
         public IList<Contact> Contacts
         {
-            get { return _contacts; }
+            get { return contacts; }
             set
             {
-                _contacts = value;
+                contacts = value;
                 OnPropertyChanged();
             }
         }

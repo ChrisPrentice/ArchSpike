@@ -1,8 +1,5 @@
 ﻿using System.Windows;
-using ILB.ApplicationServices;
-using ILB.Contacts;
 using ILB.Infrastructure;
-using ILb.Infrastructure;
 
 namespace ILB.Wpf
 {
@@ -14,8 +11,7 @@ namespace ILB.Wpf
         public MainWindow()
         {
             InitializeComponent();
-            var contactService = new ContactService(new CountyRepository(), new CountryRepository(), new ContactRepository(), new ValidationService(), new ContactAdministrationService(new CountyRepository(), new CountryRepository(), new ContactRepository()));
-            this.DataContext = new ContactEditorViewModel(contactService);
+            this.DataContext = new ContactEditorViewModel(new CommandInvoker(), new QueryInvoker());
         }
     }
 }

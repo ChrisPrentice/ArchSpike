@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using ILB.ApplicationServices;
+using ILB.ApplicationServices.Contacts;
 using ILB.Contacts;
 using ILB.Wpf.Annotations;
 
@@ -9,86 +11,87 @@ namespace ILB.Wpf
 {
     public class CreateContactViewModel : IDataErrorInfo, INotifyPropertyChanged
     {
-        private readonly CreateContactCommand _createContact;
-        private readonly IValidationService _validationService;
+        private readonly UpdateContactQueryResult createContact;
+        private readonly IValidationService validationService;
 
-        public CreateContactViewModel(CreateContactCommand createContact, IValidationService validationService)
+        public CreateContactViewModel(UpdateContactQueryResult createContact, IValidationService validationService)
         {
-            _createContact = createContact;
-            _validationService = validationService;
+            this.createContact = createContact;
+            this.validationService = validationService;
         }
 
         public string FirstName
         {
-            get { return _createContact.FirstName; }
+            get { return createContact.Command.FirstName; }
             set
             {
-                _createContact.FirstName = value;
-                this.OnPropertyChanged();
+                createContact.Command.FirstName = value;
+                OnPropertyChanged();
             }
         }
 
         public string Surname
         {
-            get { return _createContact.Surname; }
+            get { return createContact.Command.Surname; }
             set 
             {
-                _createContact.Surname = value;
-                this.OnPropertyChanged();
+                createContact.Command.Surname = value;
+                OnPropertyChanged();
             }
         }
 
         public string Address1
         {
-            get { return _createContact.Address1; }
-            set { _createContact.Address1 = value; }
+            get { return createContact.Command.Address1; }
+            set { createContact.Command.Address1 = value; }
         }
 
         public string Address2
         {
-            get { return _createContact.Address2; }
+            get { return createContact.Command.Address2; }
             set
             {
-                _createContact.Address2 = value;
-                this.OnPropertyChanged();
+                createContact.Command.Address2 = value;
+                OnPropertyChanged();
             }
         }
 
         public int CountyId
         {
-            get { return _createContact.CountyId; }
-            set { _createContact.CountyId = value; }
+            get { return createContact.Command.CountyId; }
+            set { createContact.Command.CountyId = value; }
         }
 
         public int CountryId
         {
-            get { return _createContact.CountryId; }
+            get { return createContact.Command.CountryId; }
             set
             {
-                _createContact.CountryId = value;
-                this.OnPropertyChanged();
+                createContact.Command.CountryId = value;
+                OnPropertyChanged();
             }
         }
 
         public IList<County> Counties
         {
-            get { return _createContact.Counties; }
-            set { _createContact.Counties = value; }
+            get { return createContact.Counties; }
+            set { createContact.Counties = value; }
         }
 
         public IList<Country> Countries
         {
-            get { return _createContact.Countries; }
-            set { _createContact.Countries = value; }
+            get { return createContact.Countries; }
+            set { createContact.Countries = value; }
         }
 
         public string this[string columnName]
         {
             get
             {
-                var result = _validationService.Validate(_createContact);
+                var result = validationService.Validate(createContact);
                 var firstOrDefault = result.Results.FirstOrDefault(validationResult => validationResult.MemberNames.Any(m => m == columnName));
-                return firstOrDefault == null ? "" : firstOrDefault.ErrorMessage;
+                Error = firstOrDefault == null ? "" : firstOrDefault.ErrorMessage;
+                return Error;
             }
         }
 
@@ -96,7 +99,7 @@ namespace ILB.Wpf
 
         public CreateContactCommand Command
         {
-            get { return _createContact; }
+            get { return createContact.Command; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

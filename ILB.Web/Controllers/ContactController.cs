@@ -1,48 +1,50 @@
 ﻿using System.Web.Mvc;
 using ILB.ApplicationServices;
+using ILB.ApplicationServices.Contacts;
 using ILB.Contacts;
 using ILB.Infrastructure;
-using ILb.Infrastructure;
 
 namespace ILB.Web.Controllers
 {
     public class ContactController : Controller
     {
-        private readonly IContactService _contactService;
+        private readonly ICommandInvoker commandInvoker;
+        private readonly IQueryInvoker queryInvoker;
 
         public ContactController()
         {
             // You'd really DI this is from autofac.
-            _contactService = new ContactService(new CountyRepository(), new CountryRepository(), new ContactRepository(), new ValidationService(), new ContactAdministrationService(new CountyRepository(), new CountryRepository(), new ContactRepository()));
+            commandInvoker = new CommandInvoker();
+            queryInvoker = new QueryInvoker();
         }
 
         public ActionResult Index()
         {
-            return View(_contactService.GetAll());
+            return View(queryInvoker.Query<AllContactsQueryResult>());
         }
 
         public ActionResult Create()
         {
-            return View(_contactService.CreateContact());
+            return View(queryInvoker.Query<CreateContactQueryResult>());
         }
 
         [HttpPost]
         public ActionResult Create(CreateContactCommand command)
         {
-            command = _contactService.CreateContact(command);
-            return ModelState.IsValid ? RedirectToAction("Index") : (ActionResult)View(command);
+            var response = commandInvoker.Execute<CreateContactCommand, UpdateContactQueryResult>(command);
+            return ModelState.IsValid ? RedirectToAction("Index") : (ActionResult)View(response);
         }
 
         public ActionResult Update(int id)
         {
-            return View(_contactService.UpdateContact(id));
+            return View(queryInvoker.Query<UpdateContactQuery, UpdateContactQueryResult>(new UpdateContactQuery { Id = id }));
         }
 
         [HttpPost]
         public ActionResult Update(UpdateContactCommand command)
         {
-            command = _contactService.UpdateContact(command);
-            return ModelState.IsValid ? RedirectToAction("Index") : (ActionResult)View(command);
+            var response = commandInvoker.Execute<UpdateContactCommand, UpdateContactQueryResult>(command);
+            return ModelState.IsValid ? RedirectToAction("Index") : (ActionResult)View(response);
         }
     }
 }

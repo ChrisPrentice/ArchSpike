@@ -21,27 +21,27 @@
             <Label DockPanel.Dock="Top" FontWeight="Bold">Contact Details</Label>
             <DockPanel Margin="5">
                 <Label Content="First Name" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                <TextBox Text="{Binding CurrentContact.FirstName, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Surname" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.Surname, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                <TextBox Text="{Binding CurrentContact.Surname, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Address1" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.Address1, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                <TextBox Text="{Binding CurrentContact.Address1, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Address2" Width="100"></Label>
-                <TextBox Text="{Binding CurrentCommand.Address2, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+                <TextBox Text="{Binding CurrentContact.Address2, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="County" Width="100"></Label>
-                <ComboBox ItemsSource="{Binding CurrentCommand.Counties}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding CurrentCommand.CountyId}"></ComboBox>
+                <ComboBox ItemsSource="{Binding CurrentContact.Counties}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding CurrentContact.CountyId}"></ComboBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <Label Content="Country" Width="100"></Label>
-                <ComboBox ItemsSource="{Binding CurrentCommand.Countries}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding CurrentCommand.CountryId}"></ComboBox>
+                <ComboBox ItemsSource="{Binding CurrentContact.Countries}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding CurrentContact.CountryId}"></ComboBox>
             </DockPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="New" Command="{Binding NewCommand}" Margin="5" Padding="5"></Button>

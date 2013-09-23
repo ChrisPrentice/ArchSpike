@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ILB;
 using ILB.Contacts;
 
 namespace ILb.Infrastructure
@@ -11,13 +10,13 @@ namespace ILb.Infrastructure
     public class ContactRepository : IContactRepository
     {
         private static int id;
-        private static readonly IList<Contact> contacts = new List<Contact>();
+        private static readonly IList<Contact> Contacts = new List<Contact>();
 
         public void Save(Contact contact)
         {
             id++;
             contact.Id = id;
-            contacts.Add(contact);
+            Contacts.Add(contact);
         }
 
         public void PersistAll()
@@ -27,12 +26,12 @@ namespace ILb.Infrastructure
 
         public Contact GetById(int contactId)
         {
-            return contacts.FirstOrDefault(q => q.Id == contactId);
+            return Contacts.FirstOrDefault(q => q.Id == contactId);
         }
 
         public IList<Contact> GetAll()
         {
-            return contacts.OrderBy(q => q.Surname).ToList();
+            return Contacts.OrderBy(q => q.Surname).ToList();
         }
     }
 }

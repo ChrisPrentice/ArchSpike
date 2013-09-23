@@ -2,14 +2,14 @@
     ViewBag.Title = "Index";
 }
 
-@model IList<ILB.Contacts.Contact>
+@model ILB.ApplicationServices.Contacts.AllContactsQueryResult
 
 <h2>Contacts</h2>
 
 @Html.ActionLink("Create New", "create")
 
 <ul>
-@foreach (var contact in Model)
+@foreach (var contact in Model.Contacts)
 {
     <li>@Html.ActionLink(contact.ToString(), "update", new { id = contact.Id })</li>
 }

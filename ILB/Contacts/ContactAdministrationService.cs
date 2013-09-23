@@ -2,32 +2,32 @@
 {
     public class ContactAdministrationService : IContactAdministrationService
     {
-        private readonly ICountyRepository _countyRepository;
-        private readonly ICountryRepository _countryRepository;
-        private readonly IContactRepository _contactRepository;
+        private readonly ICountyRepository countyRepository;
+        private readonly ICountryRepository countryRepository;
+        private readonly IContactRepository contactRepository;
 
         public ContactAdministrationService(ICountyRepository countyRepository, ICountryRepository countryRepository, IContactRepository contactRepository)
         {
-            _countyRepository = countyRepository;
-            _countryRepository = countryRepository;
-            _contactRepository = contactRepository;
+            this.countyRepository = countyRepository;
+            this.countryRepository = countryRepository;
+            this.contactRepository = contactRepository;
         }
 
         public void Create(CreateContactCommand createContactCommand)
         {
             var contact = new Contact(createContactCommand);
-            contact.County = _countyRepository.GetById(createContactCommand.CountyId);
-            contact.Country = _countryRepository.GetById(createContactCommand.CountyId);
-            _contactRepository.Save(contact);
+            contact.County = countyRepository.GetById(createContactCommand.CountyId);
+            contact.Country = countryRepository.GetById(createContactCommand.CountyId);
+            contactRepository.Save(contact);
         }
 
         public void Update(UpdateContactCommand updateCommand)
         {
-            var contact = _contactRepository.GetById(updateCommand.Id);
+            var contact = contactRepository.GetById(updateCommand.Id);
             contact.Update(updateCommand);
-            contact.County = _countyRepository.GetById(updateCommand.CountyId);
-            contact.Country = _countryRepository.GetById(updateCommand.CountyId);
-            _contactRepository.PersistAll();
+            contact.County = countyRepository.GetById(updateCommand.CountyId);
+            contact.Country = countryRepository.GetById(updateCommand.CountyId);
+            contactRepository.PersistAll();
         }
     }
 }
