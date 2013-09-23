@@ -39,13 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandInvoker.cs" />
     <Compile Include="ContactRepository.cs" />
     <Compile Include="CountryRepository.cs" />
     <Compile Include="CountyRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryInvoker.cs" />
-    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ILB.ApplicationServices\ILB.ApplicationServices.csproj">

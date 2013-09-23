@@ -3,6 +3,7 @@ using ILB.ApplicationServices;
 using ILB.ApplicationServices.Contacts;
 using ILB.Contacts;
 using ILB.Infrastructure;
+using ILb.Infrastructure;
 
 namespace ILB.Web.Controllers
 {
@@ -14,8 +15,16 @@ namespace ILB.Web.Controllers
         public ContactController()
         {
             // You'd really DI this is from autofac.
-            commandInvoker = new CommandInvoker();
-            queryInvoker = new QueryInvoker();
+            var contactService = new ContactService(new CountyRepository(),
+              new CountryRepository(),
+              new ContactRepository(),
+              new ValidationService(),
+              new ContactAdministrationService(new CountyRepository(),
+                                               new CountryRepository(),
+                                               new ContactRepository()));
+
+            commandInvoker = new CommandInvoker(contactService);
+            queryInvoker = new QueryInvoker(contactService);
         }
 
         public ActionResult Index()

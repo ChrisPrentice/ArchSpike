@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ILB.Infrastructure
+namespace ILB.ApplicationServices
 {
     /// <summary>
     /// Handle unit of work 

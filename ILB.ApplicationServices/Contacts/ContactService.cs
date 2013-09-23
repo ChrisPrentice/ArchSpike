@@ -4,7 +4,6 @@ using ILB.Contacts;
 namespace ILB.ApplicationServices.Contacts
 {
     public class ContactService : IHandleQuery<AllContactsQueryResult>, 
-                                    IHandleQuery<UpdateContactQueryResult>,
                                     IHandleQuery<CreateContactQueryResult>,
                                     IHandleQuery<UpdateContactQuery, UpdateContactQueryResult>,
                                     IHandleCommand<CreateContactCommand, CreateContactQueryResult>,
@@ -41,13 +40,6 @@ namespace ILB.ApplicationServices.Contacts
             IList<County> counties = countyRepository.GetAll();
             IList<Country> countries = countryRepository.GetAll();
             return new CreateContactQueryResult(counties, countries);
-        }
-
-        public UpdateContactQueryResult Query()
-        {
-            IList<County> counties = countyRepository.GetAll();
-            IList<Country> countries = countryRepository.GetAll();
-            return new UpdateContactQueryResult(counties, countries);
         }
 
         public CreateContactQueryResult Execute(CreateContactCommand createContactCommand)

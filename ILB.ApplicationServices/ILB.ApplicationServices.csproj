@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandInvoker.cs" />
     <Compile Include="Contacts\AllContactsQueryResult.cs" />
     <Compile Include="Contacts\ContactService.cs" />
     <Compile Include="Contacts\CreateContactQueryResult.cs" />
@@ -50,6 +51,8 @@
     <Compile Include="Contacts\UpdateContactQueryResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Contacts\UpdateContactQuery.cs" />
+    <Compile Include="QueryInvoker.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ILB\ILB.csproj">
