@@ -9,7 +9,7 @@ namespace ILB.ApplicationServices
     {
         public void Complete()
         {
-            
+            // Surround with transactional unit of work
         }
 
         public void Dispose()

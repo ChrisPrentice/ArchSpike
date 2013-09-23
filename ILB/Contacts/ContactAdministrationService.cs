@@ -16,8 +16,8 @@
         public void Create(CreateContactCommand createContactCommand)
         {
             var contact = new Contact(createContactCommand);
-            contact.County = countyRepository.GetById(createContactCommand.CountyId);
-            contact.Country = countryRepository.GetById(createContactCommand.CountyId);
+            contact.County = countyRepository.GetById(createContactCommand.CountyId.Value);
+            contact.Country = countryRepository.GetById(createContactCommand.CountyId.Value);
             contactRepository.Save(contact);
         }
 
@@ -25,8 +25,8 @@
         {
             var contact = contactRepository.GetById(updateCommand.Id);
             contact.Update(updateCommand);
-            contact.County = countyRepository.GetById(updateCommand.CountyId);
-            contact.Country = countryRepository.GetById(updateCommand.CountyId);
+            contact.County = countyRepository.GetById(updateCommand.CountyId.Value);
+            contact.Country = countryRepository.GetById(updateCommand.CountyId.Value);
             contactRepository.PersistAll();
         }
     }

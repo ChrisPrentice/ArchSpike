@@ -2,6 +2,9 @@
 
 namespace ILB.ApplicationServices
 {
+    /// <summary>
+    /// The query invoker is responsible for read only operations
+    /// </summary>
     public class QueryInvoker : IQueryInvoker
     {
         private readonly ContactService contactService;

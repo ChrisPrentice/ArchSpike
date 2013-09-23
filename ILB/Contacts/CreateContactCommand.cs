@@ -11,7 +11,11 @@ namespace ILB.Contacts
         public string Surname { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
-        public int CountyId { get; set; }
-        public int CountryId { get;  set; }
+        
+        [Range(2, int.MaxValue)]
+        public int? CountyId { get; set; }
+
+        [Required]
+        public int? CountryId { get;  set; }
     }
 }

@@ -67,13 +67,13 @@ namespace ILB.Wpf
             }
         }
 
-        public int CountyId
+        public int? CountyId
         {
             get { return command.CountyId; }
             set { command.CountyId = value; }
         }
 
-        public int CountryId
+        public int? CountryId
         {
             get { return command.CountryId; }
             set

@@ -10,6 +10,13 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style TargetType="{x:Type ComboBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
         <DockPanel Width="150">

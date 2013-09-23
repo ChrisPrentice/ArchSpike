@@ -2,6 +2,10 @@
 
 namespace ILB.ApplicationServices
 {
+    /// <summary>
+    /// The command invoker is responsible for write operation, each of these 
+    /// commands should be an atomic unit, so it hanldes the unit of work.
+    /// </summary>
     public class CommandInvoker : ICommandInvoker
     {
         private readonly ContactService contactService;
