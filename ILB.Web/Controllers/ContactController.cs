@@ -31,7 +31,7 @@ namespace ILB.Web.Controllers
         [HttpPost]
         public ActionResult Create(CreateContactCommand command)
         {
-            var response = commandInvoker.Execute<CreateContactCommand, UpdateContactQueryResult>(command);
+            var response = commandInvoker.Execute<CreateContactCommand, CreateContactQueryResult>(command);
             return ModelState.IsValid ? RedirectToAction("Index") : (ActionResult)View(response);
         }
 

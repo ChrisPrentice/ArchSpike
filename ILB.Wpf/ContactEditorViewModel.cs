@@ -37,7 +37,7 @@ namespace ILB.Wpf
 
             NewCommand = new DelegateCommand(() =>
                 {
-                    var modifyContactQueryResult = queryInvoker.Query<UpdateContactQueryResult>();
+                    var modifyContactQueryResult = queryInvoker.Query<CreateContactQueryResult>();
                     CurrentContact = new CreateContactViewModel(modifyContactQueryResult, new ValidationService());
                 });
             NewCommand.Execute(null);

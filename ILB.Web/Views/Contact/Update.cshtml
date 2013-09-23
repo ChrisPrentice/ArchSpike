@@ -30,12 +30,12 @@
     </div>
     <div>
         @Html.LabelFor(q => q.Command.CountyId)
-        @Html.DropDownListFor(q => q.Command.CountyId, Model.Counties.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.DropDownListFor(q => q.Command.CountyId, Model.Counties.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString(), Selected = q.Id == Model.Command.CountyId  }))
         @Html.ValidationMessageFor(q => q.Command.CountyId)
     </div>    
     <div>
         @Html.LabelFor(q => q.Command.CountryId)
-        @Html.DropDownListFor(q => q.Command.CountryId, Model.Countries.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString() }))
+        @Html.DropDownListFor(q => q.Command.CountryId, Model.Countries.Select(q=> new SelectListItem() { Text = q.Name, Value = q.Id.ToString(), Selected = q.Id == Model.Command.CountyId }))
         @Html.ValidationMessageFor(q => q.Command.CountyId)
     </div>
     <input type="submit" value="Save"/>    
