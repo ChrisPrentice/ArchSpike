@@ -29,12 +29,15 @@ namespace ILB.ApplicationServices.UnitTests
             Mock.Get(contactRepository).Setup(q => q.GetAll()).Returns(expectedContacts);
         }
 
+        //Can we do something to automate the object creation with values?
+        //TODO use autofixture to create the data automatically
         [TestMethod]
         public void Should_return_all_contact()
         {
             var contacts = queryInvoker.Query<AllContactsQueryResult>().Contacts;
             Assert.AreEqual(contacts, expectedContacts);
         }
+
     }
 
     [TestClass]
@@ -79,12 +82,13 @@ namespace ILB.ApplicationServices.UnitTests
         {
             Assert.AreEqual(createContactResult.Countries, countries);
         }
-
+        //TODO This shouldn't exist - why, how do we get rid of it
         [TestMethod]
         public void Should_contain_empty_create_contact_command()
         {
             Assert.IsInstanceOfType(createContactResult.Command, typeof(CreateContactCommand));
         }
+
     }
 
     [TestClass]
@@ -94,12 +98,11 @@ namespace ILB.ApplicationServices.UnitTests
         private ICountryRepository countryRepository;
         private IContactRepository contactRepository;
         private CommandInvoker commandInvoker;
-        private CreateContactQueryResult createContactResult;
         private IList<County> counties = new List<County>();
         private IList<Country> countries = new List<Country>();
         private Contact contactCreated;
 
-
+        //TODO use autofixture for the data
         [TestInitialize]
         public void Establish_Context()
         {
@@ -129,7 +132,7 @@ namespace ILB.ApplicationServices.UnitTests
             Mock.Get(countyRepository).Setup(q => q.GetAll()).Returns(counties);
             Mock.Get(countryRepository).Setup(q => q.GetAll()).Returns(countries);
 
-            createContactResult = commandInvoker.Execute<CreateContactCommand,CreateContactQueryResult>(new CreateContactCommand()
+            commandInvoker.Execute<CreateContactCommand,CreateContactQueryResult>(new CreateContactCommand()
                 {
                     FirstName = "Andrew",
                     Surname = "Stewart",
@@ -140,6 +143,7 @@ namespace ILB.ApplicationServices.UnitTests
                 });
         }
 
+        //TODO Try and use autofixture to gen the data and test all of the methods
         [TestMethod]
         public void Should_create_contact_with_correct_firstname()
         {

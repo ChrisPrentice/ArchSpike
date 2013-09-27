@@ -37,11 +37,14 @@ namespace ILB.ApplicationServices.Contacts
 
         CreateContactQueryResult IHandleQuery<CreateContactQueryResult>.Query()
         {
+
+            //TODO Set these to be run from the cache
             IList<County> counties = countyRepository.GetAll();
             IList<Country> countries = countryRepository.GetAll();
             return new CreateContactQueryResult(counties, countries);
         }
 
+        //TODO Make the County and Country repositories cachable
         public CreateContactQueryResult Execute(CreateContactCommand createContactCommand)
         {
             if (validationService.Validate(createContactCommand).IsValid)
