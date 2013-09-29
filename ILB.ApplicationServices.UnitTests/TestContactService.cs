@@ -3,18 +3,18 @@ using ILB.ApplicationServices.Contacts;
 using ILB.Contacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
+using Assert = Xunit.Assert;
 
 namespace ILB.ApplicationServices.UnitTests
 {
-    [TestClass]
     public class When_displaying_contacts
     {
         private readonly IList<Contact> expectedContacts = new List<Contact>();
         private IContactRepository contactRepository;
         private QueryInvoker queryInvoker;
 
-        [TestInitialize]
-        public void Establish_Context()
+        public When_displaying_contacts()
         {
             contactRepository = Mock.Of<IContactRepository>();
 
@@ -31,16 +31,15 @@ namespace ILB.ApplicationServices.UnitTests
 
         //Can we do something to automate the object creation with values?
         //TODO use autofixture to create the data automatically
-        [TestMethod]
+        [Fact]
         public void Should_return_all_contact()
         {
             var contacts = queryInvoker.Query<AllContactsQueryResult>().Contacts;
-            Assert.AreEqual(contacts, expectedContacts);
+            Assert.Equal(contacts, expectedContacts);
         }
 
     }
 
-    [TestClass]
     public class When_user_requests_create_contact_form
     {
         private ICountyRepository countyRepository;
@@ -50,9 +49,7 @@ namespace ILB.ApplicationServices.UnitTests
         private IList<County> counties = new List<County>();
         private IList<Country> countries = new List<Country>();
             
-            
-        [TestInitialize]
-        public void Establish_Context()
+        public When_user_requests_create_contact_form()
         {
             countyRepository = Mock.Of<ICountyRepository>();
             countryRepository = Mock.Of<ICountryRepository>();
@@ -71,27 +68,26 @@ namespace ILB.ApplicationServices.UnitTests
             createContactResult = queryInvoker.Query<CreateContactQueryResult>();
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_counties()
         {
-            Assert.AreEqual(createContactResult.Counties, counties);
+            Assert.Equal(createContactResult.Counties, counties);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_countries()
         {
-            Assert.AreEqual(createContactResult.Countries, countries);
+            Assert.Equal(createContactResult.Countries, countries);
         }
-        //TODO This shouldn't exist - why, how do we get rid of it
-        [TestMethod]
+        //TODO This shouldn't exist - why, how do we get rid of it?
+        [Fact]
         public void Should_contain_empty_create_contact_command()
         {
-            Assert.IsInstanceOfType(createContactResult.Command, typeof(CreateContactCommand));
+            Assert.IsType<CreateContactCommand>(createContactResult.Command);
         }
 
     }
 
-    [TestClass]
     public class When_user_requests_to_save_contact
     {
         private ICountyRepository countyRepository;
@@ -103,8 +99,7 @@ namespace ILB.ApplicationServices.UnitTests
         private Contact contactCreated;
 
         //TODO use autofixture for the data
-        [TestInitialize]
-        public void Establish_Context()
+        public When_user_requests_to_save_contact()
         {
             contactRepository = Mock.Of<IContactRepository>();
             Mock.Get(contactRepository)
@@ -144,44 +139,43 @@ namespace ILB.ApplicationServices.UnitTests
         }
 
         //TODO Try and use autofixture to gen the data and test all of the methods
-        [TestMethod]
+        [Fact]
         public void Should_create_contact_with_correct_firstname()
         {
-            Assert.AreEqual(contactCreated.FirstName, "Andrew");
+            Assert.Equal(contactCreated.FirstName, "Andrew");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_create_contact_with_correct_surname()
         {
-            Assert.AreEqual(contactCreated.Surname, "Stewart");
+            Assert.Equal(contactCreated.Surname, "Stewart");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_create_contact_with_correct_address1()
         {
-            Assert.AreEqual(contactCreated.Address1, "Address 1");
+            Assert.Equal(contactCreated.Address1, "Address 1");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_create_contact_with_correct_address2()
         {
-            Assert.AreEqual(contactCreated.Address2, "Address 2");
+            Assert.Equal(contactCreated.Address2, "Address 2");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_create_contact_with_correct_CountyId()
         {
-            Assert.AreEqual(contactCreated.County.Id, 1);
+            Assert.Equal(contactCreated.County.Id, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_create_contact_with_correct_CountryId()
         {
-            Assert.AreEqual(contactCreated.Country.Id, 1);
+            Assert.Equal(contactCreated.Country.Id, 1);
         }
     }
 
-    [TestClass]
     public class When_user_requests_to_save_an_invalid_contact
     {
         private ICountyRepository countyRepository;
@@ -194,9 +188,7 @@ namespace ILB.ApplicationServices.UnitTests
         private Contact contactCreated;
         private CreateContactCommand createContactCommand;
 
-
-        [TestInitialize]
-        public void Establish_Context()
+        public When_user_requests_to_save_an_invalid_contact()
         {
             contactRepository = Mock.Of<IContactRepository>();
             Mock.Get(contactRepository)
@@ -231,28 +223,28 @@ namespace ILB.ApplicationServices.UnitTests
             createContactResult = commandInvoker.Execute<CreateContactCommand, CreateContactQueryResult>(createContactCommand);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_not_save_changes()
         {
             Mock.Get(contactRepository).Verify(q => q.Save(It.IsAny<Contact>()), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_counties()
         {
-            Assert.AreEqual(createContactResult.Counties, counties);
+            Assert.Equal(createContactResult.Counties, counties);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_countries()
         {
-            Assert.AreEqual(createContactResult.Countries, countries);
+            Assert.Equal(createContactResult.Countries, countries);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_contain_original_create_contact_command()
         {
-            Assert.AreEqual(createContactResult.Command, createContactCommand);
+            Assert.Equal(createContactResult.Command, createContactCommand);
         }
     }
 
@@ -268,8 +260,7 @@ namespace ILB.ApplicationServices.UnitTests
         private IList<Country> countries = new List<Country>();
 
 
-        [TestInitialize]
-        public void Establish_Context()
+        public When_user_requests_update_contact_form()
         {
             contactRepository = Mock.Of<IContactRepository>();
 
@@ -304,62 +295,61 @@ namespace ILB.ApplicationServices.UnitTests
             queryResult = queryInvoker.Query<UpdateContactQuery, UpdateContactQueryResult>(new UpdateContactQuery { Id = 1});
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_counties()
         {
-            Assert.AreEqual(queryResult.Counties, counties);
+            Assert.Equal(queryResult.Counties, counties);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_countries()
         {
-            Assert.AreEqual(queryResult.Countries, countries);
+            Assert.Equal(queryResult.Countries, countries);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_contain_empty_create_contact_command()
         {
-            Assert.IsInstanceOfType(queryResult.Command, typeof(UpdateContactCommand));
+            Assert.IsType <UpdateContactCommand>(queryResult.Command);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_firstname()
         {
-            Assert.AreEqual(queryResult.Command.FirstName, "Bob");
+            Assert.Equal(queryResult.Command.FirstName, "Bob");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_surname()
         {
-            Assert.AreEqual(queryResult.Command.Surname, "Holness");
+            Assert.Equal(queryResult.Command.Surname, "Holness");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_address1()
         {
-            Assert.AreEqual(queryResult.Command.Address1, "1 Blockbuster way");
+            Assert.Equal(queryResult.Command.Address1, "1 Blockbuster way");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_address2()
         {
-            Assert.AreEqual(queryResult.Command.Address2, "ITV Town");
+            Assert.Equal(queryResult.Command.Address2, "ITV Town");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_CountyId()
         {
-            Assert.AreEqual(queryResult.Command.CountyId, 1);
+            Assert.Equal(queryResult.Command.CountyId, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_CountryId()
         {
-            Assert.AreEqual(queryResult.Command.CountryId, 2);
+            Assert.Equal(queryResult.Command.CountryId, 2);
         }
     }
 
-    [TestClass]
     public class When_user_requests_to_save_exisiting_contact
     {
         private ICountyRepository countyRepository;
@@ -372,8 +362,8 @@ namespace ILB.ApplicationServices.UnitTests
         private Contact existingContact = new Contact(new CreateContactCommand());
 
 
-        [TestInitialize]
-        public void Establish_Context()
+ 
+        public  When_user_requests_to_save_exisiting_contact()
         {
             contactRepository = Mock.Of<IContactRepository>();
             Mock.Get(contactRepository)
@@ -414,44 +404,43 @@ namespace ILB.ApplicationServices.UnitTests
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_firstname()
         {
-            Assert.AreEqual(existingContact.FirstName, "Andrew");
+            Assert.Equal(existingContact.FirstName, "Andrew");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_surname()
         {
-            Assert.AreEqual(existingContact.Surname, "Stewart");
+            Assert.Equal(existingContact.Surname, "Stewart");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_address1()
         {
-            Assert.AreEqual(existingContact.Address1, "Address 1");
+            Assert.Equal(existingContact.Address1, "Address 1");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_address2()
         {
-            Assert.AreEqual(existingContact.Address2, "Address 2");
+            Assert.Equal(existingContact.Address2, "Address 2");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_CountyId()
         {
-            Assert.AreEqual(existingContact.County.Id, 1);
+            Assert.Equal(existingContact.County.Id, 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_save_contact_with_correct_CountryId()
         {
-            Assert.AreEqual(existingContact.Country.Id, 1);
+            Assert.Equal(existingContact.Country.Id, 1);
         }
     }
 
-    [TestClass]
     public class When_user_requests_to_update_an_existing_contact_with_invalid_contact
     {
         private ICountyRepository countyRepository;
@@ -464,8 +453,7 @@ namespace ILB.ApplicationServices.UnitTests
         private UpdateContactCommand updateCommand;
 
 
-        [TestInitialize]
-        public void Establish_Context()
+        public When_user_requests_to_update_an_existing_contact_with_invalid_contact()
         {
             contactRepository = Mock.Of<IContactRepository>();
             countyRepository = Mock.Of<ICountyRepository>();
@@ -502,28 +490,28 @@ namespace ILB.ApplicationServices.UnitTests
             result = commandInvoker.Execute<UpdateContactCommand, UpdateContactQueryResult>(updateCommand);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_not_save_changes()
         {
             Mock.Get(contactRepository).Verify(q => q.Save(It.IsAny<Contact>()), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_counties()
         {
-            Assert.AreEqual(result.Counties, counties);
+            Assert.Equal(result.Counties, counties);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_show_list_of_countries()
         {
-            Assert.AreEqual(result.Countries, countries);
+            Assert.Equal(result.Countries, countries);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_contain_original_update_contact_command()
         {
-            Assert.AreEqual(result.Command, updateCommand);
+            Assert.Equal(result.Command, updateCommand);
         }
     }
 }
