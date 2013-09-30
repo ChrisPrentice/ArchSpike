@@ -3,10 +3,8 @@
 using System.Collections.Generic;
 using ILB.ApplicationServices.Contacts;
 using ILB.Contacts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Xunit;
-using Assert = Xunit.Assert;
 
 #endregion
 
@@ -96,22 +94,22 @@ namespace ILB.ApplicationServices.UnitTests
         //TODO use autofixture for the data
         public WhenUserRequestsToSaveContact()
         {
-            IContactRepository contactRepository = Mock.Of<IContactRepository>();
+            var contactRepository = Mock.Of<IContactRepository>();
             Mock.Get(contactRepository)
                 .Setup(q => q.Save(It.IsAny<Contact>()))
                 .Callback<Contact>(q => _contactCreated = q);
 
-            ICountyRepository countyRepository = Mock.Of<ICountyRepository>();
+            var countyRepository = Mock.Of<ICountyRepository>();
             Mock.Get(countyRepository)
                 .Setup(q => q.GetById(1))
                 .Returns(new County(1, "Merseyside"));
 
-            ICountryRepository countryRepository = Mock.Of<ICountryRepository>();
+            var countryRepository = Mock.Of<ICountryRepository>();
             Mock.Get(countryRepository)
                 .Setup(q => q.GetById(1))
                 .Returns(new Country(1, "UK"));
 
-            CommandInvoker commandInvoker = new CommandInvoker(new ContactService(countyRepository,
+            var commandInvoker = new CommandInvoker(new ContactService(countyRepository,
                 countryRepository,
                 contactRepository,
                 new ValidationService(),
@@ -274,7 +272,7 @@ namespace ILB.ApplicationServices.UnitTests
             var countyRepository = Mock.Of<ICountyRepository>();
             var countryRepository = Mock.Of<ICountryRepository>();
 
-            QueryInvoker queryInvoker = new QueryInvoker(new ContactService(countyRepository,
+            var queryInvoker = new QueryInvoker(new ContactService(countyRepository,
                 countryRepository,
                 contactRepository,
                 new ValidationService(),
