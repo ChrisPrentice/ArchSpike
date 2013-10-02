@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using ILB.ApplicationServices.Contacts;
 using ILB.Contacts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Ploeh.AutoFixture.AutoMoq;
 using Xunit;
 using Assert = Xunit.Assert;
+using Ploeh.AutoFixture.Xunit;
 
 namespace ILB.ApplicationServices.UnitTests
 {
@@ -248,7 +249,6 @@ namespace ILB.ApplicationServices.UnitTests
         }
     }
 
-    [TestClass]
     public class When_user_requests_update_contact_form
     {
         private IContactRepository contactRepository;

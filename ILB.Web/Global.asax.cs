@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using Autofac;
 namespace ILB.Web
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -15,6 +15,14 @@ namespace ILB.Web
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<ILB.Web.ContactModule>();
+
+            var controllerFactory = new ILB.Web.ContactControllerFactory(builder.Build());
+
+            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+
         }
     }
 }
