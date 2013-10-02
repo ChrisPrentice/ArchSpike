@@ -10,15 +10,15 @@ using Ploeh.AutoFixture.Xunit;
 
 namespace ILB.ApplicationServices.UnitTests
 {
-    /*public class AutoContactsDataAttribute : AutoDataAttribute
+    public class AutoContactsDataAttribute : AutoDataAttribute
     {
         public AutoContactsDataAttribute() : base(new Fixture().Customize(new AutoMoqCustomization()))
         {
         }
     }
-}*/
+}
 
-
+/*
     public class AutoContactsDataAttribute : AutoDataAttribute
     {
         public AutoContactsDataAttribute()
@@ -46,3 +46,4 @@ namespace ILB.ApplicationServices.UnitTests
     }
 }
 }
+*/

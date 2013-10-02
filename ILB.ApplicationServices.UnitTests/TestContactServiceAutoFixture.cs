@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -37,16 +38,18 @@ namespace ILB.ApplicationServices.UnitTests
         [Theory, AutoContactsData]
         public void Should_create_contact_with_correct_information(
             [Frozen] IContactRepository contactRepository,
+            [Frozen]IValidationService validationService,
             ContactService sut,
-            CreateContactCommand createContactCommand
-            )
+            CreateContactCommand createContactCommand)
         {
-            // How can we user this --  Fixture.Inject???  or do we supply it as a resutl of our Mock in a Mock setup.
-            //ValidationResults validationResult = new ValidationResults(ValidationResult.Success);
 
             var newContact = new Contact(createContactCommand);
             Mock.Get(contactRepository).Setup(q => q.Save(It.IsAny<Contact>()))
                 .Callback<Contact>(q => savedContact = q);
+
+            var validationResults = new ValidationResults(new Collection<ValidationResult>());
+
+            Mock.Get(validationService).Setup(q => q.Validate(createContactCommand)).Returns(validationResults);
 
             var commandInvoker = new CommandInvoker(sut);
             commandInvoker.Execute<CreateContactCommand, CreateContactQueryResult>(createContactCommand);
